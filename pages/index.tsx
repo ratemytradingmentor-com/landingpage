@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from "react"
-import EmailSignup from '../components/emailsignup';
 import { motion, useReducedMotion, AnimatePresence, useAnimation } from "framer-motion"
 import Image from "next/image"
 import { Mail, ThumbsUp, X, Instagram } from "lucide-react"
