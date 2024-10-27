@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import Head from "next/head";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
 function SuggestMentor() {
   useEffect(() => {
@@ -175,8 +176,6 @@ function SuggestMentor() {
                 field: "YOUTUBE",
               },
               { label: "Website (if applicable)", field: "WEBSITE" },
-              { label: "Best Known For", field: "BESTKNOWN" },
-              { label: "Why do you recommend this mentor?", field: "WHY" },
             ].map(({ label, field }, idx) => (
               <div className="mc-field-group mb-4" key={idx}>
                 <label
@@ -190,6 +189,26 @@ function SuggestMentor() {
                   name={field}
                   id={`mce-${field}`}
                   className="w-full mt-1"
+                />
+              </div>
+            ))}
+
+            {[
+              { label: "Best Known For", field: "BESTKNOWN" },
+              { label: "Why do you recommend this mentor?", field: "WHY" },
+            ].map(({ label, field }, idx) => (
+              <div className="mc-field-group mb-4" key={idx}>
+                <label
+                  htmlFor={`mce-${field}`}
+                  className="block text-sm font-medium"
+                >
+                  {label}
+                </label>
+                <Textarea
+                  name={field}
+                  id={`mce-${field}`}
+                  className="w-full mt-1"
+                  rows={4}
                 />
               </div>
             ))}
