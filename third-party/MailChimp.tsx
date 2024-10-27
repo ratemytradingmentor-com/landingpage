@@ -34,10 +34,10 @@ const MailChimpFormEmbed = () => {
     };
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted"); // Log to verify submission initiation
-    e.target.submit();
+    (e.target as HTMLFormElement).submit();
   };
 
   return (

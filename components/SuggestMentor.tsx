@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-css-tags */
 import React, { useEffect } from "react";
 import Head from "next/head";
 import { Input } from "@/components/ui/input";
@@ -41,6 +42,7 @@ function SuggestMentor() {
 
   return (
     <>
+      {/* eslint-disable-next-line @next/next/no-css-tags */}
       <Head>
         <link
           href="//cdn-images.mailchimp.com/embedcode/classic-061523.css"
