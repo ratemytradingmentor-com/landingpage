@@ -65,7 +65,6 @@ function SuggestMentor() {
           noValidate
         >
           <div id="mc_embed_signup_scroll">
-            <h2 className="text-2xl font-bold mb-4">Subscribe</h2>
             <div className="mb-2 text-sm text-gray-500">
               * indicates required
             </div>
@@ -155,7 +154,7 @@ function SuggestMentor() {
                     value="Twitter"
                     id="mce-CHOICE1"
                   />
-                  <span className="ml-2">Twitter</span>
+                  <span className="ml-2">X</span>
                 </label>
                 <label className="flex items-center">
                   <input
