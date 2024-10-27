@@ -9,10 +9,27 @@ function isExisting(errors: { error_code: string }[]) {
 
 export async function POST(req: NextRequest) {
   try {
-    const { email } = await req.json();
+    const { email, token } = await req.json();
 
-    if (!email) {
-      return NextResponse.json({ error: "Email is required" }, { status: 400 });
+    if (!email || !token) {
+      return NextResponse.json({ error: "Email and reCAPTCHA token are required" }, { status: 400 });
+    }
+
+    const recaptchaRes = await fetch(
+      "https://www.google.com/recaptcha/api/siteverify",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
+      }
+    );
+
+    const recaptchaData = await recaptchaRes.json();
+    if (!recaptchaData.success) {
+      return NextResponse.json(
+        { error: "reCAPTCHA verification failed. Please try again." },
+        { status: 400 }
+      );
     }
 
     const mailChimpData = {
@@ -30,7 +47,7 @@ export async function POST(req: NextRequest) {
 
     if (!audienceId || !apiKey) {
       return NextResponse.json(
-        { error: "Mailchimp configuration is missing." },
+        { error: "MailChimp configuration is missing." },
         { status: 500 }
       );
     }
@@ -58,10 +75,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // console.log("data", data);
     if (!!data.errors.length) {
       if (isExisting(data.errors)) {
-        return NextResponse.json({ message: 'Already a member', success: true });
+        return NextResponse.json({
+          message: "Already a member",
+          success: true,
+        });
       }
 
       return NextResponse.json(
@@ -71,7 +90,6 @@ export async function POST(req: NextRequest) {
     }
     return NextResponse.json({ success: true });
   } catch {
-    // console.log("error", error);
     return NextResponse.json(
       { error: "Something went wrong, please try again later." },
       { status: 500 }

@@ -17,9 +17,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { mentorImages } from "@/lib/landing-page-utils";
 
 import GlowButton from "@/components/GlowButton";
-// import MailChimpExtendedForm from "@/third-party/MailChimpExtendedForm";
 import JoinWaitList from "./JoinWaitList";
 import SuggestMentor from "./SuggestMentor";
+import { cn } from "@/lib/utils";
 
 interface FloatingMentorProps {
   src: string;
@@ -346,7 +346,7 @@ export function LandingPage() {
           alt="RateMyTradingMentor Logo"
           width={240}
           height={60}
-          className="w-auto h-6 sm:h-8 md:h-10 lg:h-12"
+          className="w-auto h-[90px]"
         />
       </header>
       <main className="flex-grow">
@@ -365,7 +365,7 @@ export function LandingPage() {
                 alt={image.alt}
                 index={index}
                 rotation={rotation}
-                className={image.className}
+                className={cn(image.className, 'bg-white')}
               />
             ))}
           </div>
@@ -436,7 +436,7 @@ export function LandingPage() {
         </section>
 
         {/* Suggest Mentor Button */}
-        <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50">
+        <div className="fixed bottom-[90px] right-4 sm:bottom-[90px] sm:right-8 z-50">
           <GlowButton
             onClick={() => setIsFormOpen(true)}
             className="bg-black text-white hover:bg-gray-900 font-semibold rounded-full px-6 py-3 text-base sm:text-lg transition-all duration-300"

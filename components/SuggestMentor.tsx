@@ -224,7 +224,7 @@ function SuggestMentor() {
               type="submit"
               className="w-full bg-blue-600 text-white font-semibold py-2 rounded mt-4"
             >
-              Subscribe
+              Submit
             </Button>
           </div>
         </form>

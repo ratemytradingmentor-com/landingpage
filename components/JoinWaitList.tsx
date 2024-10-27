@@ -1,52 +1,66 @@
 import React, { useState, FormEvent } from "react";
 import { Input } from "@/components/ui/input";
 import GlowButton from "@/components/GlowButton";
-import { useToast } from "@/hooks/use-toast"
+
+import { useToast } from "@/hooks/use-toast";
+import { useRecaptcha } from "@/hooks/use-recaptcha";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 function JoinWaitList() {
-  const [emailInput, setEmailInput] = useState('');
+  const [emailInput, setEmailInput] = useState("");
   const [buttonLoading, setButtonLoading] = useState(false);
   const { toast } = useToast();
+
+  const getCaptchaToken = useRecaptcha();
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!emailInput) {
       toast({
-        title: 'Error',
-        description: 'Email is required',
-        variant: 'destructive',
+        title: "Error",
+        description: "Email is required",
+        variant: "destructive",
       });
       return;
     }
 
     setButtonLoading(true);
+
     try {
-      const res = await fetch('/api/waitlist', {
-        method: 'POST',
+      const captchaToken = await getCaptchaToken("join_waitlist");
+
+      if (!captchaToken) {
+        throw new Error("reCAPTCHA verification failed. Please try again.");
+      }
+
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: emailInput }),
+        body: JSON.stringify({ email: emailInput, token: captchaToken }),
       });
 
       const data = await res.json();
 
       if (data.success) {
         toast({
-          title: 'Joined successfully',
-          description: 'Thank you for joining the waitlist!',
-          variant: 'default',
+          title: "Joined successfully",
+          description: "Thank you for joining the waitlist!",
+          variant: "default",
         });
-        setEmailInput('');
+        setEmailInput("");
       } else {
-        throw new Error(data.error || 'Something went wrong, please try again later');
+        throw new Error(
+          data.error || "Something went wrong, please try again later"
+        );
       }
     } catch (error) {
       toast({
-        title: 'Error',
+        title: "Error",
         description: (error as Error).message,
-        variant: 'destructive',
+        variant: "destructive",
       });
     } finally {
       setButtonLoading(false);
@@ -71,10 +85,18 @@ function JoinWaitList() {
         className="w-full sm:w-auto bg-black text-white hover:bg-gray-900 text-lg font-bold py-3 px-6 rounded-full transition-all duration-300"
         disabled={buttonLoading}
       >
-        {buttonLoading ? 'Joining...' : 'Join Waitlist'}
+        {buttonLoading ? "Joining..." : "Join Waitlist"}
       </GlowButton>
     </form>
   );
 }
 
-export default JoinWaitList;
+export default function WrappedJoinWaitList() {
+  return (
+    <GoogleReCaptchaProvider
+      reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+    >
+      <JoinWaitList />
+    </GoogleReCaptchaProvider>
+  );
+}
