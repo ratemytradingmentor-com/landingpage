@@ -3,22 +3,22 @@ import Head from "next/head";
 
 import { Input } from "@/components/ui/input";
 import GlowButton from "@/components/GlowButton";
+import { Button } from "@/components/ui/button";
+
+const FORM_LINK = "https://ratemytradingmentor.us9.list-manage.com/subscribe/post?u=102d29b40880b520e8bb1c3d0&amp;id=e74fc122b4&amp;f_id=00cc56e1f0";
 
 const MailChimpFormEmbed = () => {
   useEffect(() => {
-    // Load jQuery first
     const jqueryScript = document.createElement("script");
     jqueryScript.src =
       "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js";
     jqueryScript.onload = () => {
-      // After jQuery is loaded, load Mailchimp's mc-validate.js
       const mcScript = document.createElement("script");
       mcScript.src =
         "//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js";
       mcScript.async = true;
       document.body.appendChild(mcScript);
 
-      // Inline script to initialize Mailchimp validation settings
       const inlineScript = document.createElement("script");
       inlineScript.innerHTML = `(function($) {
         window.fnames = new Array(); 
@@ -33,6 +33,12 @@ const MailChimpFormEmbed = () => {
       document.body.removeChild(jqueryScript);
     };
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted"); // Log to verify submission initiation
+    e.target.submit();
+  };
 
   return (
     <>
@@ -58,13 +64,14 @@ const MailChimpFormEmbed = () => {
         }}
       >
         <form
-          action="https://ratemytradingmentor.us9.list-manage.com/subscribe/post?u=102d29b40880b520e8bb1c3d0&amp;id=e74fc122b4&amp;f_id=00cc56e1f0"
+          action={FORM_LINK}
           method="post"
           id="mc-embedded-subscribe-form"
           name="mc-embedded-subscribe-form"
           className="validate"
           target="_blank"
           noValidate
+          onSubmit={handleSubmit}
         >
           <div id="mc_embed_signup_scroll">
             {/* <h2 className="text-xl font-semibold mb-2">Join our waitlist</h2> */}
@@ -96,9 +103,9 @@ const MailChimpFormEmbed = () => {
                 defaultValue=""
               />
             </div>
-            <GlowButton type="submit" name="subscribe" className="mt-4">
+            <Button type="submit" name="subscribe" className="mt-4">
               Join Waitlist
-            </GlowButton>
+            </Button>
           </div>
         </form>
       </div>

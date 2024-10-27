@@ -3,6 +3,9 @@ import Head from "next/head";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+
+const FORM_LINK = "https://ratemytradingmentor.us9.list-manage.com/subscribe/post?u=102d29b40880b520e8bb1c3d0&amp;id=e74fc122b4&amp;f_id=00cc56e1f0";
+
 const MailChimpExtendedFormEmbed = () => {
   useEffect(() => {
     const jqueryScript = document.createElement("script");
@@ -60,7 +63,7 @@ const MailChimpExtendedFormEmbed = () => {
         }}
       >
         <form
-          action="https://ratemytradingmentor.us9.list-manage.com/subscribe/post?u=102d29b40880b520e8bb1c3d0&amp;id=e74fc122b4&amp;f_id=00f356e1f0"
+          action={FORM_LINK}
           method="post"
           id="mc-embedded-subscribe-form"
           name="mc-embedded-subscribe-form"
