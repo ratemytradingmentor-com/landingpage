@@ -15,6 +15,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "FindMyMentor",
   description: "Find Your Perfect Trading Mentor",
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +28,9 @@ export default function RootLayout({
   return (
     <>
       <html lang="en">
-        <head />
+        <head>
+          <link rel="icon" href="/icon.ico" sizes="any" />
+        </head>
         <body className={`${poppins.variable} antialiased`}>
           {children}
           <Toaster />
