@@ -500,7 +500,7 @@ const Footer = () => (
   </footer>
 )
 
-export default function Component() {
+export function LandingPage() {
   const [rotation, setRotation] = useState(0);
   const shouldReduceMotion = useReducedMotion()
   const [isFormOpen, setIsFormOpen] = useState(false);
