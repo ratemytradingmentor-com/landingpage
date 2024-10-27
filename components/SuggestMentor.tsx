@@ -73,7 +73,7 @@ function SuggestMentor() {
             {/* Email Field */}
             <div className="mc-field-group mb-4">
               <label htmlFor="mce-EMAIL" className="block text-sm font-medium">
-                Email Address *
+                Your Email Address *
               </label>
               <Input
                 type="email"
