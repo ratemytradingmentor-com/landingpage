@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { Toaster } from "@/components/ui/toaster";
+
 import "./globals.css";
 
 const poppins = Poppins({
@@ -21,9 +23,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} antialiased`}>{children}</body>
-      <GoogleAnalytics gaId="G-9V7156E24T" />
-    </html>
+    <>
+      <html lang="en">
+        <head />
+        <body className={`${poppins.variable} antialiased`}>
+          {children}
+          <Toaster />
+        </body>
+        <GoogleAnalytics gaId="G-9V7156E24T" />
+      </html>
+    </>
   );
 }

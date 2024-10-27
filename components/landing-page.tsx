@@ -17,8 +17,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { mentorImages } from "@/lib/landing-page-utils";
 
 import GlowButton from "@/components/GlowButton";
-import MailChimpFormEmbed from "@/third-party/MailChimp";
-import MailChimpExtendedForm from "@/third-party/MailChimpExtendedForm";
+// import MailChimpExtendedForm from "@/third-party/MailChimpExtendedForm";
+import JoinWaitList from "./JoinWaitList";
+import SuggestMentor from "./SuggestMentor";
 
 interface FloatingMentorProps {
   src: string;
@@ -161,7 +162,7 @@ const FloatingIcons = () => {
 
 const EmailSignup = () => {
   return <section>
-    <MailChimpFormEmbed />
+    <JoinWaitList />
   </section>;
 };
 
@@ -189,7 +190,7 @@ const SuggestMentorForm = ({ onClose }: { onClose: () => void }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <MailChimpExtendedForm />
+          <SuggestMentor />
         </motion.div>
         <p className="text-xs text-center text-gray-600 mt-4">
           Fields marked with * are required
