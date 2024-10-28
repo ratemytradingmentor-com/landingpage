@@ -346,7 +346,7 @@ export function LandingPage() {
           alt="RateMyTradingMentor Logo"
           width={240}
           height={60}
-          className="w-auto h-[90px]"
+          className="w-auto h-[40px] sm:h-[90px]"
         />
       </header>
       <main className="flex-grow">
